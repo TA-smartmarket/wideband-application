@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Smart Market</string>
+
+    <!-- Idle / welcome -->
+    <string name="welcome_title">Selamat Datang di Smart Market</string>
+    <string name="welcome_subtitle">Belanja lebih mudah bersama Smart Trolley.</string>
+    <string name="start_shopping">Mulai Belanja</string>
+    <string name="welcome_footer">Tidak perlu login. Data katalog bersifat demo.</string>
+
+    <!-- Navigation / session -->
+    <string name="end_session">Akhiri Belanja</string>
+    <string name="end_session_title">Akhiri Sesi Belanja?</string>
+    <string name="end_session_message">Keranjang akan disimpan untuk sesi berikutnya.</string>
+    <string name="stay">Batal</string>
+    <string name="yes">Ya, Akhiri</string>
+
+    <!-- Common -->
+    <string name="back">Kembali</string>
+    <string name="add">Tambah</string>
+    <string name="remove">Hapus</string>
+    <string name="search_hint">Cari produk…</string>
+    <string name="empty_cart_title">Keranjang masih kosong</string>
+    <string name="empty_cart_body">Cari produk lalu tambahkan ke keranjang.</string>
+</resources>
