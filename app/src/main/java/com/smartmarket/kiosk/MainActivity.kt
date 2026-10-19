@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity(), ShopNavigator {
 
     private var pendingNavigateProductId: String? = null
 
+    /** True while a tab is being selected programmatically (re-entrancy guard). */
+    private var syncingBottomNav = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -102,9 +105,11 @@ class MainActivity : AppCompatActivity(), ShopNavigator {
     }
 
     private fun selectTab(id: Int) {
-        if (binding.bottomNav.selectedItemId != id) {
-            binding.bottomNav.selectedItemId = id
-        }
+        if (syncingBottomNav) return
+        if (binding.bottomNav.selectedItemId == id) return
+        syncingBottomNav = true
+        binding.bottomNav.selectedItemId = id
+        syncingBottomNav = false
     }
 
     private fun replaceRoot(fragment: Fragment, tag: String) {

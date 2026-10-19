@@ -80,7 +80,7 @@
                 android:layout_marginTop="4dp"
                 android:textColor="@color/sm_muted"
                 android:textSize="12sp"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:text="Rute: 3 tahap · jarak estimasi 370 unit" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
