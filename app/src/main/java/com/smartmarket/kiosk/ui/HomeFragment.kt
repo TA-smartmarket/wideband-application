@@ -103,6 +103,7 @@ class HomeFragment : Fragment() {
     private fun renderTrolleyState(state: com.smartmarket.kiosk.integration.TrolleyState) {
         val dotColor = when {
             state.status == TrolleyStatus.FAULT -> R.color.sm_error
+            state.status == TrolleyStatus.POSITION_LOST -> R.color.sm_warning
             state.status == TrolleyStatus.NAVIGATING -> R.color.sm_green
             state.status == TrolleyStatus.ARRIVED -> R.color.sm_green
             else -> R.color.sm_muted
@@ -121,6 +122,7 @@ class HomeFragment : Fragment() {
             TrolleyStatus.WAITING_DESTINATION -> "Menunggu tujuan"
             TrolleyStatus.NAVIGATING -> "Menavigasi…"
             TrolleyStatus.STOPPED -> "Berhenti"
+            TrolleyStatus.POSITION_LOST -> "Kehilangan Posisi (berhenti aman)"
             TrolleyStatus.ARRIVED -> "Tiba di tujuan"
             TrolleyStatus.FAULT -> "Gangguan"
         }

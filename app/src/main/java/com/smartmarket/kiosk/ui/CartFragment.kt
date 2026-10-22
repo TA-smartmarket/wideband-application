@@ -11,12 +11,17 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartmarket.kiosk.ShopNavigator
 import com.smartmarket.kiosk.appContainer
+import com.smartmarket.kiosk.data.repository.CartSource
 import com.smartmarket.kiosk.databinding.FragmentCartBinding
 import com.smartmarket.kiosk.util.formatRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-/** Shopping cart: quantity controls, remove, total, then navigate to a rack. */
+/**
+ * Read-only cart: item contents and quantities come from the system-confirmed
+ * RFID/backend source. When that source has no data yet, the screen clearly
+ * reports "menunggu data RFID" instead of showing empty transactions.
+ */
 class CartFragment : Fragment() {
 
     private var _binding: FragmentCartBinding? = null
@@ -40,16 +45,12 @@ class CartFragment : Fragment() {
 
         val cart = appContainer.cartViewModel
 
-        adapter = CartAdapter(
-            onIncrement = { cart.increment(it) },
-            onDecrement = { cart.decrement(it) },
-            onRemove = { cart.remove(it) },
-        )
+        adapter = CartAdapter()
         binding.rvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCart.adapter = adapter
 
         binding.btnNavigateCart.setOnClickListener {
-            val first = cart.items.value.firstOrNull()
+            val first = cart.state.value.items.firstOrNull()
             if (first != null) {
                 navigator.showMap(navigateToProductId = first.id)
             }
@@ -57,14 +58,36 @@ class CartFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                cart.items.collectLatest { items ->
-                    adapter.submitList(items)
-                    val empty = items.isEmpty()
-                    binding.emptyView.visibility = if (empty) View.VISIBLE else View.GONE
-                    binding.rvCart.visibility = if (empty) View.GONE else View.VISIBLE
+                cart.state.collectLatest { data ->
+                    adapter.submitList(data.items)
+
+                    val pending = data.source == CartSource.NONE &&
+                        cart.itemCount == 0
+                    when {
+                        pending -> {
+                            binding.emptyView.visibility = View.VISIBLE
+                            binding.rvCart.visibility = View.GONE
+                            binding.tvEmptyTitle.text = "Data keranjang belum tersedia"
+                            binding.tvEmptyMessage.text =
+                                "Menunggu koneksi RFID — sistem akan mengisi keranjang saat barang terdeteksi"
+                        }
+
+                        data.items.isEmpty() -> {
+                            binding.emptyView.visibility = View.VISIBLE
+                            binding.rvCart.visibility = View.GONE
+                            binding.tvEmptyTitle.text = getString(com.smartmarket.kiosk.R.string.empty_cart_title)
+                            binding.tvEmptyMessage.text = getString(com.smartmarket.kiosk.R.string.empty_cart_body)
+                        }
+
+                        else -> {
+                            binding.emptyView.visibility = View.GONE
+                            binding.rvCart.visibility = View.VISIBLE
+                        }
+                    }
+
                     binding.tvCount.text = "${cart.itemCount} barang"
                     binding.tvTotal.text = formatRupiah(cart.total)
-                    binding.btnNavigateCart.isEnabled = !empty
+                    binding.btnNavigateCart.isEnabled = data.items.isNotEmpty()
                 }
             }
         }

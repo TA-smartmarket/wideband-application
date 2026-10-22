@@ -14,6 +14,8 @@ enum class TrolleyStatus {
     WAITING_DESTINATION,
     NAVIGATING,
     STOPPED,
+    /** Navigation core lost a valid position and stopped safely (telemetry `POSITION_LOST`). */
+    POSITION_LOST,
     ARRIVED,
     FAULT,
 }

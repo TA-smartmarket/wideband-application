@@ -2,8 +2,10 @@ package com.smartmarket.kiosk.core.di
 
 import android.content.Context
 import com.smartmarket.kiosk.BuildConfig
+import com.smartmarket.kiosk.data.repository.CartRepository
 import com.smartmarket.kiosk.data.repository.CatalogRepository
 import com.smartmarket.kiosk.data.repository.DemoCatalogRepository
+import com.smartmarket.kiosk.data.repository.PendingCartRepository
 import com.smartmarket.kiosk.data.uwb.UwbPositioningRepository
 import com.smartmarket.kiosk.integration.DemoTrolleyNavigationRepository
 import com.smartmarket.kiosk.integration.TrolleyNavigationRepository
@@ -36,6 +38,13 @@ class AppContainer(context: Context) {
             tagId = BuildConfig.UWB_TAG_ID,
         )
 
-    /** App-scoped shopping cart (survives fragment navigation). */
-    val cartViewModel: CartViewModel = CartViewModel()
+    /**
+     * Authoritative cart source. Until an RFID/backend contract exists this is
+     * the explicit empty source (labelled "menunggu data RFID") — never fake
+     * transactions.
+     */
+    val cartRepository: CartRepository = PendingCartRepository()
+
+    /** App-scoped shopping cart (read-only; contents come from [cartRepository]). */
+    val cartViewModel: CartViewModel = CartViewModel(cartRepository)
 }

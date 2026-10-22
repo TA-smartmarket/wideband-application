@@ -16,9 +16,7 @@
 
     <!-- Common -->
     <string name="back">Kembali</string>
-    <string name="add">Tambah</string>
-    <string name="remove">Hapus</string>
     <string name="search_hint">Cari produk…</string>
     <string name="empty_cart_title">Keranjang masih kosong</string>
-    <string name="empty_cart_body">Cari produk lalu tambahkan ke keranjang.</string>
+    <string name="empty_cart_body">Barang yang terdeteksi sistem RFID akan tampil di sini.</string>
 </resources>

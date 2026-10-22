@@ -57,57 +57,21 @@
                 tools:text="Rp 8.500" />
         </LinearLayout>
 
-        <LinearLayout
+        <!-- Read-only quantity badge: system-confirmed, no +/- controls. -->
+        <TextView
+            android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnMinus"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="0dp"
-                android:padding="0dp"
-                android:text="−"
-                android:textSize="16sp"
-                app:strokeColor="@color/sm_divider" />
-
-            <TextView
-                android:id="@+id/tvQuantity"
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="1"
-                android:textColor="@color/sm_text"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPlus"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="0dp"
-                android:padding="0dp"
-                android:text="+"
-                android:textSize="16sp"
-                app:strokeColor="@color/sm_green" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/btnRemove"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/remove"
-            android:src="@android:drawable/ic_menu_delete"
-            app:tint="@color/sm_error" />
+            android:background="@drawable/bg_qty_badge"
+            android:gravity="center"
+            android:minWidth="36dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="×1"
+            android:textColor="@color/sm_text"
+            android:textSize="13sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

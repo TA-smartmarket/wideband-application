@@ -37,7 +37,9 @@ data class UwbState(
     val source: UwbSource = UwbSource.NONE,
     val stale: Boolean = false,
     val error: String? = null,
+    /** Room planar width (X span) in metres, from `/api/v1/state` → `room.width`. */
     val roomWidthM: Float = 0f,
+    /** Room planar depth/Y span in metres, from `room.depth` (NOT `room.height`, the ceiling). */
     val roomHeightM: Float = 0f,
 )
 
@@ -120,7 +122,9 @@ class UwbPositioningRepository(
         val root = JSONObject(body)
         val room = root.optJSONObject("room")
         val roomW = room?.optDouble("width")?.toFloat() ?: 0f
-        val roomH = room?.optDouble("height")?.toFloat() ?: 0f
+        // Planar Y extent is `depth` in the frozen contract (`room.width`/`room.depth`/
+        // `room.height`); `height` is the ceiling (Z), which is NOT a map dimension.
+        val roomH = room?.optDouble("depth")?.toFloat() ?: 0f
 
         val tag = findTag(root)
         if (tag == null) {

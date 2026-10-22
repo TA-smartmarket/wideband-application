@@ -10,10 +10,13 @@ layar idle/welcome; tombol **Mulai Belanja** memulai sesi belanja lokal.
 2. **Beranda** — pencarian, kategori, promo, rekomendasi, status troli, akses
    peta & keranjang.
 3. **Katalog** — pencarian + filter kategori (data demo lokal).
-4. **Detail produk** — pilih jumlah, tambah keranjang, cari lokasi rak di peta.
-5. **Keranjang** — ubah jumlah, hapus item, subtotal & total, navigasi ke rak.
+4. **Detail produk** — deskripsi, harga, lokasi rak, cari lokasi di peta
+   (tanpa tombol tambah/jumlah manual).
+5. **Keranjang** — isi berasal dari konfirmasi sistem RFID/backend; subtotal &
+   total; navigasi ke rak. Tidak ada kontrol kuantitas manual.
 6. **Peta & navigasi** — denah demo, pilih tujuan, rute Dijkstra, marker troli
-   (simulasi), posisi UWB nyata bila server tersedia.
+   (simulasi), posisi UWB nyata bila server tersedia. Status positioning (UWB)
+   dan status navigasi (troli) ditampilkan terpisah.
 7. **Akhiri Belanja** — kembali ke idle; keranjang dipertahankan (perilaku lama).
 
 ## Teknologi
@@ -37,7 +40,7 @@ app/src/main/java/com/smartmarket/kiosk/
 │   ├── model/                 # Product, Category, CartItem, Graph, Node, Edge…
 │   ├── local/                 # DemoCatalog (18 produk), DemoMap (denah)
 │   ├── algorithm/Dijkstra.kt  # shortest path (murni Kotlin)
-│   ├── repository/            # CatalogRepository + demo impl
+│   ├── repository/            # CatalogRepository + demo impl; CartRepository (seam RFID)
 │   └── uwb/                   # UwbPositioningRepository (GET /api/v1/state)
 ├── integration/               # TrolleyNavigationRepository + simulator
 ├── ui/                        # Fragment + Adapter + MapView (custom Canvas)
@@ -57,6 +60,8 @@ app/src/main/res/layout/       # activity_main + fragment_* + item_* (XML)
   tampil "Tidak terhubung" (tidak ada koordinat palsu). Posisi troli berasal dari
   tag UWB, **bukan** GPS HP.
 - Data UWB vs demo dibedakan dengan label eksplisit.
+- Dimensi ruangan memakai `room.width` × `room.depth` dari kontrak `GET /api/v1/state`
+  (bukan `room.height`, yang merupakan tinggi plafon/Z).
 
 ## Integrasi navigasi (troli)
 
@@ -64,6 +69,16 @@ app/src/main/res/layout/       # activity_main + fragment_* + item_* (XML)
   tunggal. `DemoTrolleyNavigationRepository` (simulasi, label "Simulasi") memajukan
   marker; `HardwareTrolleyNavigationRepository` adalah placeholder yang **tidak**
   mengirim perintah motor sampai kontrak firmware diverifikasi.
+- Status positioning (UWB) dan status navigasi (troli) dirender terpisah di layar
+  Peta; `POSITION_LOST` dipetakan dari telemetri navigasi ("kehilangan posisi —
+  berhenti aman").
+
+## Keranjang (RFID)
+
+- `CartRepository` adalah seam untuk sumber isi keranjang yang sah (RFID/backend).
+- Saat ini terpasang `PendingCartRepository` (sumber kosong); layar Keranjang
+  menampilkan "Menunggu koneksi RFID" tanpa transaksi palsu. Kontrol kuantitas
+  manual (`+`/`−`, hapus, tambah) telah dihapus dari detail produk dan keranjang.
 
 ## Build & test
 

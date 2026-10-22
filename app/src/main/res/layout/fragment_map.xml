@@ -55,23 +55,35 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Positioning status (UWB) -->
             <TextView
-                android:id="@+id/tvStatus"
+                android:id="@+id/tvPositionStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/sm_text"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                tools:text="Posisi: Tidak terhubung" />
+                tools:text="Posisi troli: Tidak terhubung" />
 
             <TextView
                 android:id="@+id/tvCoords"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:textColor="@color/sm_muted"
                 android:textSize="12sp"
                 tools:text="Koordinat tidak tersedia" />
+
+            <!-- Navigation status (trolley), separate from positioning -->
+            <TextView
+                android:id="@+id/tvNavStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/sm_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Status troli: belum ada perintah navigasi" />
 
             <TextView
                 android:id="@+id/tvRouteInfo"

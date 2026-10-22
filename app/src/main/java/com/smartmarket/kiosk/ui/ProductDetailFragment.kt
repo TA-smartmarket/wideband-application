@@ -14,7 +14,11 @@ import com.smartmarket.kiosk.databinding.FragmentProductDetailBinding
 import com.smartmarket.kiosk.util.formatRupiah
 import kotlinx.coroutines.launch
 
-/** Product detail with quantity picker, add-to-cart, and map lookup. */
+/**
+ * Product detail: description, price, shelf location, and map navigation. No
+ * manual add-to-cart or quantity picker — cart contents are system-confirmed
+ * (RFID), so selecting a destination must NOT add the product to the cart.
+ */
 class ProductDetailFragment : Fragment() {
 
     private var _binding: FragmentProductDetailBinding? = null
@@ -23,7 +27,6 @@ class ProductDetailFragment : Fragment() {
     private val navigator get() = requireActivity() as ShopNavigator
 
     private var product: Product? = null
-    private var quantity: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,22 +44,8 @@ class ProductDetailFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        val productId = arguments?.getString(ARG_PRODUCT_ID)
-        loadProduct(productId)
+        loadProduct(arguments?.getString(ARG_PRODUCT_ID))
 
-        binding.btnMinus.setOnClickListener {
-            quantity = (quantity - 1).coerceAtLeast(1)
-            renderQuantity()
-        }
-        binding.btnPlus.setOnClickListener {
-            quantity += 1
-            renderQuantity()
-        }
-        binding.btnAdd.setOnClickListener {
-            val p = product ?: return@setOnClickListener
-            appContainer.cartViewModel.add(p, quantity)
-            navigator.showCart()
-        }
         binding.btnNavigate.setOnClickListener {
             val p = product ?: return@setOnClickListener
             navigator.showMap(navigateToProductId = p.id)
@@ -84,7 +73,6 @@ class ProductDetailFragment : Fragment() {
         binding.tvPrice.text = ""
         binding.tvDescription.text = ""
         binding.tvEmoji.text = "?"
-        binding.btnAdd.isEnabled = false
         binding.btnNavigate.isEnabled = false
     }
 
@@ -102,12 +90,6 @@ class ProductDetailFragment : Fragment() {
         val location = DemoCatalog.locationByProduct[p.id]
         val shelf = location?.let { com.smartmarket.kiosk.data.local.DemoMap.shelves.associateBy { it.id }[it.shelfId] }
         binding.tvLocation.text = if (shelf != null) "Rak: ${shelf.label}" else "Lokasi rak belum tersedia"
-
-        renderQuantity()
-    }
-
-    private fun renderQuantity() {
-        binding.tvQuantity.text = quantity.toString()
     }
 
     override fun onDestroyView() {
