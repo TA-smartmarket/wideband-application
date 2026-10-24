@@ -46,6 +46,15 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAccount"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Akun"
+                android:textColor="@color/sm_green"
+                android:textSize="13sp" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEndSession"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
@@ -54,6 +63,32 @@
                 android:textColor="@color/sm_green"
                 android:textSize="13sp" />
         </LinearLayout>
+
+        <!-- Search box (top) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:endIconMode="clear_text"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/ic_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Trolley status -->
         <com.google.android.material.card.MaterialCardView
@@ -138,32 +173,6 @@
                 android:textStyle="bold"
                 tools:text="Promo: Diskon demo untuk katalog lokal" />
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- Search -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/searchLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:boxCornerRadiusBottomEnd="14dp"
-            app:boxCornerRadiusBottomStart="14dp"
-            app:boxCornerRadiusTopEnd="14dp"
-            app:boxCornerRadiusTopStart="14dp"
-            app:endIconMode="clear_text"
-            app:hintEnabled="false"
-            app:startIconDrawable="@drawable/ic_search">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/search_hint"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tvCategoryTitle"

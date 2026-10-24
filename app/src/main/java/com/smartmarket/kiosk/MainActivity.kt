@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.smartmarket.kiosk.databinding.ActivityMainBinding
+import com.smartmarket.kiosk.ui.AccountFragment
 import com.smartmarket.kiosk.ui.CartFragment
 import com.smartmarket.kiosk.ui.CatalogFragment
 import com.smartmarket.kiosk.ui.HomeFragment
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), ShopNavigator {
                 R.id.nav_home -> showBeranda()
                 R.id.nav_map -> showMap()
                 R.id.nav_cart -> showCart()
+                R.id.nav_account -> showAccount()
             }
             true
         }
@@ -78,6 +80,12 @@ class MainActivity : AppCompatActivity(), ShopNavigator {
         setShoppingUi(true)
         selectTab(R.id.nav_cart)
         replaceRoot(CartFragment(), TAG_CART)
+    }
+
+    override fun showAccount() {
+        setShoppingUi(true)
+        selectTab(R.id.nav_account)
+        replaceRoot(AccountFragment(), TAG_ACCOUNT)
     }
 
     /** Consumed once by [MapFragment] to auto-navigate to a product's shelf. */
@@ -138,5 +146,6 @@ class MainActivity : AppCompatActivity(), ShopNavigator {
         const val TAG_DETAIL = "detail"
         const val TAG_MAP = "map"
         const val TAG_CART = "cart"
+        const val TAG_ACCOUNT = "account"
     }
 }

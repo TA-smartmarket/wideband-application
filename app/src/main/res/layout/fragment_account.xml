@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sm_bg"
+    android:fillViewport="true"
+    tools:context=".ui.AccountFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Akun"
+            android:textColor="@color/sm_text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/sm_surface"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/sm_divider"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/bg_emoji"
+                    android:gravity="center"
+                    android:text="👤"
+                    android:textSize="32sp"
+                    tools:ignore="HardcodedText" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvAccountName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pengguna Troli"
+                        android:textColor="@color/sm_text"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAccountStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Belum ada akun — mode lokal (login dinonaktifkan)"
+                        android:textColor="@color/sm_muted"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Info Sesi"
+            android:textColor="@color/sm_text"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/sm_surface"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/sm_divider"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Belanja bersifat lokal dan tidak memerlukan login."
+                    android:textColor="@color/sm_muted"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Keranjang diisi oleh sistem (RFID/backend), bukan manual."
+                    android:textColor="@color/sm_muted"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</ScrollView>

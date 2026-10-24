@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
         binding.btnEndSession.setOnClickListener { navigator.endSession() }
         binding.btnOpenMap.setOnClickListener { navigator.showMap() }
         binding.btnViewAll.setOnClickListener { navigator.showCatalog() }
+        binding.btnAccount.setOnClickListener { navigator.showAccount() }
 
         binding.etSearch.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == android.view.KeyEvent.KEYCODE_ENTER ||

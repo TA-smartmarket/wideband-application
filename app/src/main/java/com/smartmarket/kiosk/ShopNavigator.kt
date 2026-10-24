@@ -11,6 +11,7 @@ interface ShopNavigator {
     fun showProductDetail(productId: String)
     fun showMap(navigateToProductId: String? = null)
     fun showCart()
+    fun showAccount()
     fun endSession()
 }
 
